@@ -10,6 +10,7 @@
             overflow: hidden;
             background: black;
             font-family: Arial, sans-serif;
+            cursor: none;
         }
         canvas {
             position: absolute;
@@ -33,10 +34,21 @@
         p {
             font-size: 1.2em;
         }
+        #cursor {
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid white;
+            pointer-events: none;
+            z-index: 10;
+        }
     </style>
 </head>
 <body>
     <canvas id="canvas"></canvas>
+    <div id="cursor"></div>
     <div class="content">
         <h1>Bienvenido a Asteroids</h1>
         <p>Disfruta del fondo animado que simula el clásico juego Asteroids.</p>
@@ -110,6 +122,12 @@
         }
 
         animate();
+
+        const cursor = document.getElementById('cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = (e.clientX - 5) + 'px';
+            cursor.style.top = (e.clientY - 10) + 'px';
+        });
 
         window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
